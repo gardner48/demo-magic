@@ -80,6 +80,8 @@ function wait() {
 #
 ##
 function p() {
+
+  # extract only the first character from $1 to check if it is a color
   if [[ ${1:0:1} == "#" ]]; then
     cmd=$DEMO_COMMENT_COLOR$1$COLOR_RESET
   else
