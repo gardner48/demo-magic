@@ -186,7 +186,7 @@ function check_pv() {
   }
 }
 
-check_pv
+
 #
 # handle some default params
 # -h for help
@@ -212,3 +212,11 @@ while getopts ":dhncw:" opt; do
       ;;
   esac
 done
+
+
+##
+# Do not check for pv. This trusts the user to set TYPE_SPEED later in the demo.
+##
+if [[ -n "$TYPE_SPEED" ]]; then
+  check_pv
+fi
