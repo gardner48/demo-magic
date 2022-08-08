@@ -6,8 +6,8 @@
 #
 # Copyright (c) 2015 Paxton Hare
 #
-# This script lets you script demos in bash. It runs through your demo script when you press
-# ENTER. It simulates typing and runs commands.
+# This script lets you script demos in bash. It runs through your demo script
+# when you press ENTER. It simulates typing and runs commands.
 #
 ###############################################################################
 
@@ -17,7 +17,8 @@ TYPE_SPEED=20
 # no wait after "p" or "pe"
 NO_WAIT=false
 
-# if > 0, will pause for this amount of seconds before automatically proceeding with any p or pe
+# if > 0, will pause for this amount of seconds before automatically proceeding
+# with any p or pe
 PROMPT_TIMEOUT=0
 
 # don't show command number unless user specifies it
