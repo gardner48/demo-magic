@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# ------------------------------------------------------------------------------
+# Programmer(s): David J. Gardner @ LLNL
+# ------------------------------------------------------------------------------
+# Driver script for SUNDIALS+AMReX hands-on presentation at ATPESC 2022
+# Lesson repo: https://github.com/xsdk-project/MathPackagesTraining2022
+# ------------------------------------------------------------------------------
 
 # include the magic
 source ./demo-magic.sh -d
