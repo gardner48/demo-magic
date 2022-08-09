@@ -218,7 +218,8 @@ done
 
 
 ##
-# Do not check for pv. This trusts the user to set TYPE_SPEED later in the demo.
+# Do not check for pv. This trusts the user to not set TYPE_SPEED later in the
+# demo in which case an error will occur if pv is not installed.
 ##
 if [[ -n "$TYPE_SPEED" ]]; then
   check_pv
