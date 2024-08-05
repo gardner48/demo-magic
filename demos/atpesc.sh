@@ -61,11 +61,11 @@ echo -e \
 # Explicit integration with fixed step sizes.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "question"
 echo -e \
@@ -80,11 +80,11 @@ echo -e \
 # size.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=21.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=21.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=22.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=22.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 LESSON="Lesson 1: Temporal Adaptivity"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
@@ -95,8 +95,8 @@ echo -e \
 # Explicit integration with adaptive step sizes.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "./process_ARKStep_diags.py HandsOn1_diagnostics.txt"
 
 p "msg"
@@ -107,12 +107,12 @@ echo -e \
 # * How do the number of time steps change as different tolerances are requested?
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "./process_ARKStep_diags.py HandsOn1_diagnostics.txt"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "./process_ARKStep_diags.py HandsOn1_diagnostics.txt"
 
 LESSON="Lesson 1: Integrator Order and Efficiency"
@@ -124,8 +124,8 @@ echo -e \
 # Explicit integration with adaptive step sizes and different methods orders.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "msg"
 echo -e \
@@ -135,11 +135,11 @@ value of rtol - what is the most \"efficient\" overall method for this problem
 at this tolerance?
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=2"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=2"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=5"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=5"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 ########################
 # Lesson 2
@@ -154,11 +154,11 @@ echo -e \
 # Implicit integration with fixed step sizes.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=100.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=100.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "question"
 echo -e \
@@ -176,10 +176,10 @@ echo -e \
 #   nonlinear and/or linear solver fails to converge?
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=300.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=300.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=1000.0"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=1000.0"
 
 LESSON="Lesson 2: Temporal Adaptivity Revisited"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
@@ -190,8 +190,8 @@ echo -e \
 # Implicit integration with adaptive step sizes.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "msg"
 echo -e \
@@ -217,11 +217,11 @@ echo -e \
 # How do the number of time steps change as different tolerances are requested?
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0 rtol=1e-2"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0 rtol=1e-2"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0 rtol=1e-6"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0 rtol=1e-6"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 LESSON="Lesson 2: IMEX Partitioning"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
@@ -232,8 +232,8 @@ echo -e \
 # Implicit-Explicit (IMEX) integration with fixed step sizes.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "msg"
 echo -e \
@@ -242,8 +242,8 @@ echo -e \
 # and IMEX formulations with these fixed time-step tests?
 ${COLOR_RESET}"
 
-# pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2"
-# pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+# pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2"
+# pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "question"
 echo -e \
@@ -260,11 +260,11 @@ echo -e \
 # find a maximum stable step size?
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=53.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=53.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=55.0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=55.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "msg"
 echo -e \
@@ -272,8 +272,8 @@ echo -e \
 # Implicit-Explicit (IMEX) integration with adaptive step sizes.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=0"
-pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "./process_ARKStep_diags.py HandsOn2_diagnostics.txt"
 
 ########################
@@ -314,8 +314,8 @@ echo -e \
 # Implicit integration with adaptive step sizes and preconditioning.
 ${COLOR_RESET}"
 
-pe "mpirun -n 1 ./HandsOn3.CUDA.exe inputs-3"
-pe "mpirun -n 1 ./HandsOn3.CUDA.exe inputs-3 use_preconditioner=0"
+pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3"
+pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3 use_preconditioner=0"
 
 p "msg"
 echo -e \
