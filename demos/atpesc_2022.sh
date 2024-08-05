@@ -2,15 +2,22 @@
 # ------------------------------------------------------------------------------
 # Programmer(s): David J. Gardner @ LLNL
 # ------------------------------------------------------------------------------
-# Driver script for SUNDIALS+AMReX hands-on presentation at ATPESC 2022
-# Lesson repo: https://github.com/xsdk-project/MathPackagesTraining2022
+# Driver script for SUNDIALS+AMReX hands-on presentation at ATPESC 2023
+# Lesson repo: https://github.com/xsdk-project/MathPackagesTraining2023
+#
+# ssh thetagpusn2
+# sleep 15m; fetchnode
 # ------------------------------------------------------------------------------
 
 # include the magic
 source ./demo-magic.sh -d
 
 # setup the environment on theta
-source ./env_thetagpu.sh
+#source ./env_thetagpu.sh
+
+# sync with installed examples
+#rsync -a /eagle/ATPESC2023/EXAMPLES/track-5-numerical/time_integration_sundials .
+cd time_integration_sundials
 
 # hide the evidence
 clear
@@ -25,13 +32,11 @@ SHOW_CMD_NUMS=true
 # Demo
 ########################
 
-LESSON="ATPESC 2022"
+LESSON="ATPESC 2023"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
 # where are we
-pe "pwd"
-pe "module load conda/2022-07-01"
-pe "conda activate"
+pe "ls"
 
 ########################
 # Intro
@@ -65,7 +70,7 @@ ${COLOR_RESET}"
 pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1"
 pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
 
-pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=100.0"
+pe "mpirun -n 1 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
 pe "mpirun -n 1 ./fcompare plt00001/ reference_solution/"
 
 p "question"
@@ -290,7 +295,7 @@ echo -e \
 # Out-brief
 ${COLOR_RESET}"
 
-LESSON="ATPESC 2022"
+LESSON="ATPESC 2023"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
 p "msg"
