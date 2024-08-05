@@ -2,21 +2,15 @@
 # ------------------------------------------------------------------------------
 # Programmer(s): David J. Gardner @ LLNL
 # ------------------------------------------------------------------------------
-# Driver script for SUNDIALS+AMReX hands-on presentation at ATPESC 2023
-# Lesson repo: https://github.com/xsdk-project/MathPackagesTraining2023
-#
-# ssh thetagpusn2
-# sleep 15m; fetchnode
+# Driver script for SUNDIALS+AMReX hands-on presentation at ATPESC 2024
+# Lesson repo: https://github.com/xsdk-project/MathPackagesTraining2024
 # ------------------------------------------------------------------------------
 
 # include the magic
 source ./demo-magic.sh -d
 
-# setup the environment on theta
-#source ./env_thetagpu.sh
-
 # sync with installed examples
-#rsync -a /eagle/ATPESC2023/EXAMPLES/track-5-numerical/time_integration_sundials .
+#rsync -a /eagle/ATPESC2024/EXAMPLES/track-5-numerical/time_integration_sundials .
 cd time_integration_sundials
 
 # hide the evidence
@@ -32,7 +26,7 @@ SHOW_CMD_NUMS=true
 # Demo
 ########################
 
-LESSON="ATPESC 2023"
+LESSON="ATPESC 2024"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
 # where are we
@@ -295,7 +289,7 @@ echo -e \
 # Out-brief
 ${COLOR_RESET}"
 
-LESSON="ATPESC 2023"
+LESSON="ATPESC 2024"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
 p "msg"
@@ -305,7 +299,7 @@ echo -e \
 ${COLOR_RESET}"
 
 pe "conda deactivate"
-pe "module unload conda/2022-07-01"
+pe "module unload conda"
 
 ########################
 # Lesson 3
