@@ -298,8 +298,8 @@ echo -e \
 # Unsetup instructions.
 ${COLOR_RESET}"
 
-pe "conda deactivate"
-pe "module unload conda"
+p "conda deactivate"
+p "module unload conda"
 
 ########################
 # Lesson 3
