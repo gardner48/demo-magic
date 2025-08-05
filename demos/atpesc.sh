@@ -154,8 +154,8 @@ pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
 
 read -n 1 -s -r
 echo -e \
-"${GREEN}# Rename the log file to save for later${COLOR_RESET}"
-pe "mv HandsOn1.log HandsOn1_1e-4.log"
+"${GREEN}# Save the log file for later${COLOR_RESET}"
+pe "cp HandsOn1.log HandsOn1_1e-4.log"
 
 read -n 1 -s -r
 echo -e \
@@ -196,7 +196,7 @@ pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "HandsOn1.log HandsOn1_1e-6.log"
 
-./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf
+pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
 
 # Summarize results
 read -n 1 -s -r
