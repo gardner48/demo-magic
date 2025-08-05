@@ -97,7 +97,7 @@ ${COLOR_RESET}"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "./process_ARKStep_diags.py HandsOn1_diagnostics.txt"
+pe "./plot_log.py HandsOn1.log --logy"
 
 p "msg"
 echo -e \
@@ -109,11 +109,11 @@ ${COLOR_RESET}"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "./process_ARKStep_diags.py HandsOn1_diagnostics.txt"
+pe "./plot_log.py HandsOn1.log --logy"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "./process_ARKStep_diags.py HandsOn1_diagnostics.txt"
+pe "./plot_log.py HandsOn1.log --logy"
 
 LESSON="Lesson 1: Integrator Order and Efficiency"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
@@ -200,7 +200,7 @@ echo -e \
 # step size of HandsOn1.CUDA.exe (mean = 21.7) for the same tolerances?
 ${COLOR_RESET}"
 
-pe "./process_ARKStep_diags.py HandsOn2_diagnostics.txt"
+pe "./plot_log.py HandsOn2.log --logy"
 
 p "question"
 echo -e \
@@ -274,7 +274,7 @@ ${COLOR_RESET}"
 
 pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=0"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "./process_ARKStep_diags.py HandsOn2_diagnostics.txt"
+pe "./plot_log.py HandsOn2.log --logy"
 
 ########################
 # Wrap up
