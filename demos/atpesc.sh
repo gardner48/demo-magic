@@ -192,7 +192,7 @@ pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 mv HandsOn1.log HandsOn1_1.2c.log
 
-./plot_log.py HandsOn1_1.2a.log HandsOn1_1.2c.log HandsOn1_1.2c.log --logy --labels 1e-2 1e-4 1e-6
+./plot_log.py HandsOn1_1.2a.log HandsOn1_1.2c.log HandsOn1_1.2c.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf
 
 # Summarize results
 read -n 1 -s -r
