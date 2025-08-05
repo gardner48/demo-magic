@@ -118,7 +118,6 @@ pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=22.0"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 # Summarize results
-read -n 1 -s -r
 echo -e \
 "${CYAN}
 Fixed Step Results
@@ -161,9 +160,9 @@ echo -e \
 "${CYAN}
 Adaptive Step Results
 
-| rtol |  error | runtime |
-+------+--------+---------+
-| 1e-4 | 3.4e-4 |    0.48 |
+| rtol |  error | runtime |     steps |
++------+--------+---------+-----------+
+| 1e-4 | 3.4e-4 |    0.48 | 456 (459) |
 
 ${COLOR_RESET}"
 
@@ -191,7 +190,6 @@ pe "mv HandsOn1.log HandsOn1_1e-6.log"
 pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
 
 # Summarize results
-read -n 1 -s -r
 echo -e \
 "${CYAN}
 Adaptive Step Results
@@ -204,8 +202,6 @@ Adaptive Step Results
 
 ${COLOR_RESET}"
 
-#>>>>> ADD PLOT COMPARING DIFFERENT RESULTS
-
 read -n 1 -s -r
 echo -e \
      "${GREEN}\
@@ -214,18 +210,18 @@ echo -e \
 # -------------------------------- #
 ${COLOR_RESET}"
 
-p "msg"
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# Explicit integration with adaptive step sizes and different methods orders.
-${COLOR_RESET}"
-
+"${GREEN}# 8th order method with adaptive dt${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8"
+
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
-p "msg"
+read -n 1 -s -r
 echo -e \
-"${GREEN}
+"${RED}
 Run the code a few more times with various values of arkode_order for a fixed
 value of rtol - what is the most \"efficient\" overall method for this problem
 at this tolerance?
@@ -234,8 +230,28 @@ ${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=2"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=3"
+pe "./amrex_fcompare plt00001/ reference_solution/"
+
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=4"
+pe "./amrex_fcompare plt00001/ reference_solution/"
+
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=5"
 pe "./amrex_fcompare plt00001/ reference_solution/"
+
+# Summarize results
+echo -e \
+"${CYAN}
+Adaptive Step Results
+
+| order |  error | runtime |     steps |
++-------+--------+---------+-----------+
+|     2 | 2.2e-2 |     |  |
+|     3 | 3.4e-4 |     |  |
+|     4 | 2.5e-6 |     |  |
+|     5 | 2.5e-6 |     |  |
+
+${COLOR_RESET}"
 
 ########################
 # Lesson 2
@@ -384,40 +400,6 @@ echo -e \
 "${GREEN}
 # Out-brief
 ${COLOR_RESET}"
-
-# LESSON="ATPESC 2025"
-# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
-
-# p "msg"
-# echo -e \
-# "${GREEN}
-# # Unsetup instructions.
-# ${COLOR_RESET}"
-
-# p "conda deactivate"
-# p "module unload conda"
-
-# ########################
-# # Lesson 3
-# ########################
-
-# LESSON="Lesson 3: Preconditioning"
-# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
-
-# p "msg"
-# echo -e \
-# "${GREEN}
-# # Implicit integration with adaptive step sizes and preconditioning.
-# ${COLOR_RESET}"
-
-# pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3"
-# pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3 use_preconditioner=0"
-
-# p "msg"
-# echo -e \
-# "${GREEN}
-# # Note the preconditioned version is requires approximately half as many linear iterations
-# ${COLOR_RESET}"
 
 # show a prompt so as not to reveal our true nature after
 # the demo has concluded
