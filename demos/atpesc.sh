@@ -26,8 +26,7 @@ SHOW_CMD_NUMS=true
 # Demo
 ########################
 
-LESSON="ATPESC 2025"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+DEMO_PROMPT="${GREEN}> "
 
 # where are we
 pe "ls"
@@ -36,48 +35,84 @@ pe "ls"
 # Intro
 ########################
 
-p "msg"
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# For this hands-on we consider a model for transport of a pollutant that has
-# been released into a flow in a two dimensional domain. This is an example of a
-# scalar-valued advection-diffusion problem for chemical transport.
-#
-# The example application uses a finite volume spatial discretization with
-# AMReX. For the time integration, we use the ARKODE package from SUNDIALS to
-# explore explicit, implicit, and IMEX integrators.
+     "${CYAN}
+For this hands-on we consider a model for transport of a pollutant that has
+been released into a flow in a two dimensional domain. This is an example of a
+scalar-valued advection-diffusion problem for chemical transport.
+
+The example application uses a finite volume spatial discretization with
+AMReX. For the time integration, we use the ARKODE package from SUNDIALS to
+explore explicit, implicit, and IMEX integrators.
 ${COLOR_RESET}"
 
 ########################
 # Lesson 1
 ########################
 
-LESSON="Lesson 1: Linear Stability"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
-
-p "msg"
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# Explicit integration with fixed step sizes.
+     "${GREEN}\
+# ----------------------------------- #
+# Lesson 1: Explicit Time Integration #
+# ----------------------------------- #
 ${COLOR_RESET}"
 
+########################
+# Lesson 1.1
+########################
+
+read -n 1 -s -r
+echo -e \
+     "${GREEN}\
+# ---------------------------- #
+# Lesson 1.1: Fixed Step Sizes #
+# ---------------------------- #
+${COLOR_RESET}"
+
+# Stable step size
+read -n 1 -s -r
+echo -e \
+"${GREEN}# 4th order method with dt = 5${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1"
-pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
-pe "./amrex_fcompare plt00001/ reference_solution/"
-
-p "question"
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# What do you think happened?
+"${GREEN}# Compute the final error${COLOR_RESET}"
+pe "./amrex_fcompare plt00001/ reference_solution/"
+
+# Unstable step size
+read -n 1 -s -r
+echo -e \
+"${GREEN}# 4th order method with dt = 25${COLOR_RESET}"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
+
+read -n 1 -s -r
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
+pe "./amrex_fcompare plt00001/ reference_solution/"
+
+# Summarize results
+read -n 1 -s -r
+echo -e \
+"${CYAN}
+Fixed Step Results
+
+| dt |  error | runtime |
++----+--------+---------+
+|  5 | 8.5e-9 |    1.68 |
+| 25 | 1      |    0.37 |
+
+What do you think happened?
 ${COLOR_RESET}"
 
-p "msg"
+# Run some more step sizes
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# Run the code a few more times, trying to identify the largest stable time step
-# size.
+"${RED}
+Run the code a few more times with difference step sizes and try to identify the
+largest stable time step size.
 ${COLOR_RESET}"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=21.0"
@@ -86,37 +121,102 @@ pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=22.0"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
-LESSON="Lesson 1: Temporal Adaptivity"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
-
-p "msg"
+# Summarize results
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# Explicit integration with adaptive step sizes.
+"${CYAN}
+Fixed Step Results
+
+| dt |  error | runtime |
++----+--------+---------+
+| 21 | 1.8e-6 |    0.43 |
+| 22 | 0.99   |    0.41 |
+
+The max step size is about 21
 ${COLOR_RESET}"
 
+########################
+# Lesson 1.2
+########################
+
+read -n 1 -s -r
+echo -e \
+     "${GREEN}\
+# ------------------------------- #
+# Lesson 1.2: Temporal Adaptivity #
+# ------------------------------- #
+${COLOR_RESET}"
+
+read -n 1 -s -r
+echo -e \
+"${GREEN}# 4th order method with adaptive dt (rtol = 1e-4, atol = 1e-9)${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
+mv HandsOn1.log HandsOn1_1.2b.log
+
+read -n 1 -s -r
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
+
+# Summarize results
+read -n 1 -s -r
+echo -e \
+"${CYAN}
+Adaptive Step Results
+
+| rtol |  error | runtime |
++------+--------+---------+
+| 1e-4 | 3.4e-4 |    0.48 |
+
+${COLOR_RESET}"
+
+read -n 1 -s -r
+echo -e \
+"${GREEN}# Plot the step size history${COLOR_RESET}"
 pe "./plot_log.py HandsOn1.log --logy"
 
-p "msg"
+# Run some more step sizes
+read -n 1 -s -r
 echo -e \
-"${GREEN}
-# Run the code a few more times with different rtol values:
-# * How well does the adaptivity algorithm produce solutions within the desired tolerances?
-# * How do the number of time steps change as different tolerances are requested?
+"${RED}
+Run the code a few more times with different rtol values:
+* How well does the adaptivity algorithm produce solutions within the desired tolerances?
+* How do the number of time steps change as different tolerances are requested?
 ${COLOR_RESET}"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "./plot_log.py HandsOn1.log --logy"
+mv HandsOn1.log HandsOn1_1.2a.log
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "./plot_log.py HandsOn1.log --logy"
+mv HandsOn1.log HandsOn1_1.2c.log
 
-LESSON="Lesson 1: Integrator Order and Efficiency"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+./plot_log.py HandsOn1_1.2a.log HandsOn1_1.2c.log HandsOn1_1.2c.log --logy --labels 1e-2 1e-4 1e-6
+
+# Summarize results
+read -n 1 -s -r
+echo -e \
+"${CYAN}
+Adaptive Step Results
+
+| rtol |  error | runtime |     steps |
++------+--------+---------+-----------+
+| 1e-2 | 2.2e-2 |    0.48 | 459 (461) |
+| 1e-4 | 3.4e-4 |    0.48 | 456 (459) |
+| 1e-6 | 2.5e-6 |    0.49 | 465 (466) |
+
+${COLOR_RESET}"
+
+#>>>>> ADD PLOT COMPARING DIFFERENT RESULTS
+
+read -n 1 -s -r
+echo -e \
+     "${GREEN}\
+# -------------------------------- #
+# Lesson 1.3: Order and Efficiency #
+# -------------------------------- #
+${COLOR_RESET}"
 
 p "msg"
 echo -e \
@@ -146,7 +246,7 @@ pe "./amrex_fcompare plt00001/ reference_solution/"
 ########################
 
 LESSON="Lesson 2: Linear Stability Revisited"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
 
 p "msg"
 echo -e \
@@ -182,7 +282,7 @@ pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=1000.0"
 
 LESSON="Lesson 2: Temporal Adaptivity Revisited"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
 
 p "msg"
 echo -e \
@@ -224,7 +324,7 @@ pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 LESSON="Lesson 2: IMEX Partitioning"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
 
 p "msg"
 echo -e \
@@ -281,7 +381,7 @@ pe "./plot_log.py HandsOn2.log --logy"
 ########################
 
 LESSON="Out-brief"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
 
 p "msg"
 echo -e \
@@ -290,7 +390,7 @@ echo -e \
 ${COLOR_RESET}"
 
 # LESSON="ATPESC 2025"
-# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
 
 # p "msg"
 # echo -e \
@@ -306,7 +406,7 @@ ${COLOR_RESET}"
 # ########################
 
 # LESSON="Lesson 3: Preconditioning"
-# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
 
 # p "msg"
 # echo -e \
