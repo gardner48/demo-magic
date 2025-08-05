@@ -77,24 +77,20 @@ echo -e \
 "${GREEN}# 4th order method with dt = 5${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1"
 
-read -n 1 -s -r
 echo -e \
 "${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 # Unstable step size
-read -n 1 -s -r
 echo -e \
 "${GREEN}# 4th order method with dt = 25${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
 
-read -n 1 -s -r
 echo -e \
 "${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 # Summarize results
-read -n 1 -s -r
 echo -e \
 "${CYAN}
 Fixed Step Results
@@ -152,18 +148,15 @@ echo -e \
 "${GREEN}# 4th order method with adaptive dt (rtol = 1e-4, atol = 1e-9)${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
 
-read -n 1 -s -r
 echo -e \
 "${GREEN}# Save the log file for later${COLOR_RESET}"
-pe "cp HandsOn1.log HandsOn1_1e-4.log"
+pe "mv HandsOn1.log HandsOn1_1e-4.log"
 
-read -n 1 -s -r
 echo -e \
 "${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 # Summarize results
-read -n 1 -s -r
 echo -e \
 "${CYAN}
 Adaptive Step Results
@@ -174,10 +167,9 @@ Adaptive Step Results
 
 ${COLOR_RESET}"
 
-read -n 1 -s -r
 echo -e \
 "${GREEN}# Plot the step size history${COLOR_RESET}"
-pe "./plot_log.py HandsOn1.log --logy"
+pe "./plot_log.py HandsOn1_1e-4.log --logy"
 
 # Run some more step sizes
 read -n 1 -s -r
@@ -190,11 +182,11 @@ ${COLOR_RESET}"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "HandsOn1.log HandsOn1_1e-2.log"
+pe "mv HandsOn1.log HandsOn1_1e-2.log"
 
 pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
-pe "HandsOn1.log HandsOn1_1e-6.log"
+pe "mv HandsOn1.log HandsOn1_1e-6.log"
 
 pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
 
