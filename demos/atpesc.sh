@@ -71,63 +71,63 @@ echo -e \
 ${COLOR_RESET}"
 
 # Stable step size
-# read -n 1 -s -r
-# echo -e \
-# "${GREEN}# 4th order method with dt = 5${COLOR_RESET}"
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1"
+read -n 1 -s -r
+echo -e \
+"${GREEN}# 4th order method with dt = 5${COLOR_RESET}"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1"
 
-# echo -e \
-# "${GREEN}# Compute the final error${COLOR_RESET}"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# # Unstable step size
-# echo -e \
-# "${GREEN}# 4th order method with dt = 25${COLOR_RESET}"
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
+# Unstable step size
+echo -e \
+"${GREEN}# 4th order method with dt = 25${COLOR_RESET}"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=25.0"
 
-# echo -e \
-# "${GREEN}# Compute the final error${COLOR_RESET}"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# # Summarize results
-# echo -e \
-# "${CYAN}
-# Fixed Step Results
+# Summarize results
+echo -e \
+"${CYAN}
+Fixed Step Results
 
-# | dt |  error | runtime |
-# +----+--------+---------+
-# |  5 | 8.5e-9 |    1.68 |
-# | 25 | 1      |    0.37 |
+| dt |  error | runtime |
++----+--------+---------+
+|  5 | 8.5e-9 |    1.68 |
+| 25 | 1      |    0.37 |
 
-# What do you think happened?
-# ${COLOR_RESET}"
+What do you think happened?
+${COLOR_RESET}"
 
-# # Run some more step sizes
-# read -n 1 -s -r
-# echo -e \
-# "${RED}
-# Run the code a few more times with difference step sizes and try to identify the
-# largest stable time step size.
-# ${COLOR_RESET}"
+# Run some more step sizes
+read -n 1 -s -r
+echo -e \
+"${RED}
+Run the code a few more times with difference step sizes and try to identify the
+largest stable time step size.
+${COLOR_RESET}"
 
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=21.0"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=21.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=22.0"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=22.0"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# # Summarize results
-# echo -e \
-# "${CYAN}
-# Fixed Step Results
+# Summarize results
+echo -e \
+"${CYAN}
+Fixed Step Results
 
-# | dt |  error | runtime |
-# +----+--------+---------+
-# | 21 | 1.8e-6 |    0.43 |
-# | 22 | 0.99   |    0.41 |
+| dt |  error | runtime |
++----+--------+---------+
+| 21 | 1.8e-6 |    0.43 |
+| 22 | 0.99   |    0.41 |
 
-# The max step size is about 21
-# ${COLOR_RESET}"
+The max step size is about 21
+${COLOR_RESET}"
 
 ########################
 # Lesson 1.2
@@ -141,65 +141,65 @@ echo -e \
 # ------------------------------- #
 ${COLOR_RESET}"
 
-# read -n 1 -s -r
-# echo -e \
-# "${GREEN}# 4th order method with adaptive dt (rtol = 1e-4, atol = 1e-9)${COLOR_RESET}"
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
+read -n 1 -s -r
+echo -e \
+"${GREEN}# 4th order method with adaptive dt (rtol = 1e-4, atol = 1e-9)${COLOR_RESET}"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0"
 
-# echo -e \
-# "${GREEN}# Save the log file for later${COLOR_RESET}"
-# pe "mv HandsOn1.log HandsOn1_1e-4.log"
+echo -e \
+"${GREEN}# Save the log file for later${COLOR_RESET}"
+pe "mv HandsOn1.log HandsOn1_1e-4.log"
 
-# echo -e \
-# "${GREEN}# Compute the final error${COLOR_RESET}"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# # Summarize results
-# echo -e \
-# "${CYAN}
-# Adaptive Step Results
+# Summarize results
+echo -e \
+"${CYAN}
+Adaptive Step Results
 
-# | rtol |  error | runtime |     steps |
-# +------+--------+---------+-----------+
-# | 1e-4 | 3.4e-4 |    0.48 | 459 (461) |
+| rtol |  error | runtime |     steps |
++------+--------+---------+-----------+
+| 1e-4 | 3.4e-4 |    0.48 | 459 (461) |
 
-# ${COLOR_RESET}"
+${COLOR_RESET}"
 
-# echo -e \
-# "${GREEN}# Plot the step size history${COLOR_RESET}"
-# pe "./plot_log.py HandsOn1_1e-4.log --logy"
+echo -e \
+"${GREEN}# Plot the step size history${COLOR_RESET}"
+pe "./plot_log.py HandsOn1_1e-4.log --logy"
 
-# # Run some more step sizes
-# read -n 1 -s -r
-# echo -e \
-# "${RED}
-# Run the code a few more times with different rtol values:
-# * How well does the adaptivity algorithm produce solutions within the desired tolerances?
-# * How do the number of time steps change as different tolerances are requested?
-# ${COLOR_RESET}"
+# Run some more step sizes
+read -n 1 -s -r
+echo -e \
+"${RED}
+Run the code a few more times with different rtol values:
+* How well does the adaptivity algorithm produce solutions within the desired tolerances?
+* How do the number of time steps change as different tolerances are requested?
+${COLOR_RESET}"
 
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
-# pe "mv HandsOn1.log HandsOn1_1e-2.log"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-2"
+pe "./amrex_fcompare plt00001/ reference_solution/"
+pe "mv HandsOn1.log HandsOn1_1e-2.log"
 
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
-# pe "mv HandsOn1.log HandsOn1_1e-6.log"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
+pe "./amrex_fcompare plt00001/ reference_solution/"
+pe "mv HandsOn1.log HandsOn1_1e-6.log"
 
-# pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
+pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
 
-# # Summarize results
-# echo -e \
-# "${CYAN}
-# Adaptive Step Results
+# Summarize results
+echo -e \
+"${CYAN}
+Adaptive Step Results
 
-# | rtol |  error | runtime |     steps |
-# +------+--------+---------+-----------+
-# | 1e-2 | 2.2e-2 |    0.48 | 456 (459) |
-# | 1e-4 | 3.4e-4 |    0.48 | 459 (461) |
-# | 1e-6 | 2.5e-6 |    0.49 | 465 (466) |
+| rtol |  error | runtime |     steps |
++------+--------+---------+-----------+
+| 1e-2 | 2.2e-2 |    0.48 | 456 (459) |
+| 1e-4 | 3.4e-4 |    0.48 | 459 (461) |
+| 1e-6 | 2.5e-6 |    0.49 | 465 (466) |
 
-# ${COLOR_RESET}"
+${COLOR_RESET}"
 
 ########################
 # Lesson 1.3
@@ -213,28 +213,28 @@ echo -e \
 # -------------------------------- #
 ${COLOR_RESET}"
 
-# read -n 1 -s -r
-# echo -e \
-# "${GREEN}# 8th order method with adaptive dt${COLOR_RESET}"
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8"
+read -n 1 -s -r
+echo -e \
+"${GREEN}# 8th order method with adaptive dt${COLOR_RESET}"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=8"
 
-# echo -e \
-# "${GREEN}# Compute the final error${COLOR_RESET}"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+echo -e \
+"${GREEN}# Compute the final error${COLOR_RESET}"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# read -n 1 -s -r
-# echo -e \
-# "${RED}
-# Run the code a few more times with various values of arkode_order for a fixed
-# value of rtol - what is the most \"efficient\" overall method for this problem
-# at this tolerance?
-# ${COLOR_RESET}"
+read -n 1 -s -r
+echo -e \
+"${RED}
+Run the code a few more times with various values of arkode_order for a fixed
+value of rtol - what is the most \"efficient\" overall method for this problem
+at this tolerance?
+${COLOR_RESET}"
 
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=2"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=2"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
-# pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=5"
-# pe "./amrex_fcompare plt00001/ reference_solution/"
+pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 arkode_order=5"
+pe "./amrex_fcompare plt00001/ reference_solution/"
 
 # Summarize results
 echo -e \
@@ -471,7 +471,7 @@ Fixed Step Results
 |   im |   5 | 4.8e-6 |   23.37 |                    60,716 |
 |   im | 100 | 9.5e-5 |    5.19 |                     9,079 |
 | imex |   5 | 2.6e-8 |   23.73 | 14,001 (ex) + 62,001 (im) |
-| imex |  40 | 6.2e-6 |    3.78 |  7,751 (ex) +  9,562 (im) |                           |
+| imex |  40 | 6.2e-6 |    3.78 |  7,751 (ex) +  9,562 (im) |
 
 ${COLOR_RESET}"
 
