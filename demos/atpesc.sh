@@ -10,7 +10,9 @@
 source ./demo-magic.sh -d
 
 # sync with installed examples
-#rsync -a /eagle/ATPESC2024/EXAMPLES/track-5-numerical/time_integration_sundials .
+./synch.sh
+
+# move to examples
 cd time_integration_sundials
 
 # hide the evidence
@@ -96,7 +98,7 @@ Fixed Step Results
 
 | dt |  error | runtime |
 +----+--------+---------+
-|  5 | 8.5e-9 |    1.68 |
+|  5 | 3.2e-8 |    1.68 |
 | 25 | 1      |    0.37 |
 
 What do you think happened?
@@ -186,8 +188,6 @@ pe "mpiexec -n 4 ./HandsOn1.CUDA.exe inputs-1 fixed_dt=0 rtol=1e-6"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 pe "mv HandsOn1.log HandsOn1_1e-6.log"
 
-pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
-
 # Summarize results
 echo -e \
 "${CYAN}
@@ -200,6 +200,8 @@ Adaptive Step Results
 | 1e-6 | 2.5e-6 |    0.49 | 465 (466) |
 
 ${COLOR_RESET}"
+
+pe "./plot_log.py HandsOn1_1e-2.log HandsOn1_1e-4.log HandsOn1_1e-6.log --logy --labels 1e-2 1e-4 1e-6 --save ex_adaptive.pdf"
 
 ########################
 # Lesson 1.3
@@ -222,7 +224,6 @@ echo -e \
 "${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
-read -n 1 -s -r
 echo -e \
 "${RED}
 Run the code a few more times with various values of arkode_order for a fixed
@@ -302,7 +303,7 @@ Fixed Step Results
 
 | type |  dt |  error | runtime |
 +------+-----+--------+---------+
-|   ex |   5 | 8.5e-9 |    1.68 |
+|   ex |   5 | 3.2e-8 |    1.68 |
 |   ex |  25 | 1      |    0.37 |
 |   im |   5 | 4.8e-6 |   23.37 |
 |   im | 100 | 9.5e-5 |    5.19 |
@@ -426,7 +427,7 @@ Fixed Step Results
 
 | type |  dt |  error | runtime |                 rhs evals |
 +------+-----+--------+---------+---------------------------+
-|   ex |   5 | 8.5e-9 |    1.68 |                     8,001 |
+|   ex |   5 | 3.2e-9 |    1.68 |                     8,001 |
 |   ex |  25 | 1      |    0.37 |                     1,601 |
 |   im |   5 | 4.8e-6 |   23.37 |                    60,716 |
 |   im | 100 | 9.5e-5 |    5.19 |                     9,079 |
@@ -446,6 +447,7 @@ Why does ARKODE report such significant differences in the number of explicit
 vs implicit RHS function evaluations?
 ${COLOR_RESET}"
 
+read -n 1 -s -r
 echo -e \
 "${RED}
 Run the IMEX version a few times with various fixed time step sizes (the
@@ -466,7 +468,7 @@ Fixed Step Results
 
 | type |  dt |  error | runtime |                 rhs evals |
 +------+-----+--------+---------+---------------------------+
-|   ex |   5 | 8.5e-9 |    1.68 |                     8,001 |
+|   ex |   5 | 3.2e-9 |    1.68 |                     8,001 |
 |   ex |  25 | 1      |    0.37 |                     1,601 |
 |   im |   5 | 4.8e-6 |   23.37 |                    60,716 |
 |   im | 100 | 9.5e-5 |    5.19 |                     9,079 |
