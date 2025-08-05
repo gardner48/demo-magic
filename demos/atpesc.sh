@@ -289,39 +289,39 @@ echo -e \
 # Out-brief
 ${COLOR_RESET}"
 
-LESSON="ATPESC 2024"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+# LESSON="ATPESC 2024"
+# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
-p "msg"
-echo -e \
-"${GREEN}
-# Unsetup instructions.
-${COLOR_RESET}"
+# p "msg"
+# echo -e \
+# "${GREEN}
+# # Unsetup instructions.
+# ${COLOR_RESET}"
 
-p "conda deactivate"
-p "module unload conda"
+# p "conda deactivate"
+# p "module unload conda"
 
-########################
-# Lesson 3
-########################
+# ########################
+# # Lesson 3
+# ########################
 
-LESSON="Lesson 3: Preconditioning"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
+# LESSON="Lesson 3: Preconditioning"
+# DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
-p "msg"
-echo -e \
-"${GREEN}
-# Implicit integration with adaptive step sizes and preconditioning.
-${COLOR_RESET}"
+# p "msg"
+# echo -e \
+# "${GREEN}
+# # Implicit integration with adaptive step sizes and preconditioning.
+# ${COLOR_RESET}"
 
-pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3"
-pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3 use_preconditioner=0"
+# pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3"
+# pe "mpiexec -n 4 ./HandsOn3.CUDA.exe inputs-3 use_preconditioner=0"
 
-p "msg"
-echo -e \
-"${GREEN}
-# Note the preconditioned version is requires approximately half as many linear iterations
-${COLOR_RESET}"
+# p "msg"
+# echo -e \
+# "${GREEN}
+# # Note the preconditioned version is requires approximately half as many linear iterations
+# ${COLOR_RESET}"
 
 # show a prompt so as not to reveal our true nature after
 # the demo has concluded
