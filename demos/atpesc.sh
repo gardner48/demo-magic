@@ -260,10 +260,10 @@ echo -e \
 # find a maximum stable step size?
 ${COLOR_RESET}"
 
-pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=53.0"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=40.0"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
-pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=55.0"
+pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 rhs_adv=1 fixed_dt=45.0"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 p "msg"
