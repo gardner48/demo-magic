@@ -26,7 +26,7 @@ SHOW_CMD_NUMS=true
 # Demo
 ########################
 
-LESSON="ATPESC 2024"
+LESSON="ATPESC 2025"
 DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
 # where are we
@@ -289,7 +289,7 @@ echo -e \
 # Out-brief
 ${COLOR_RESET}"
 
-# LESSON="ATPESC 2024"
+# LESSON="ATPESC 2025"
 # DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}$ "
 
 # p "msg"
