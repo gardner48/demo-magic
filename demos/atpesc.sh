@@ -35,7 +35,6 @@ pe "ls"
 # Intro
 ########################
 
-read -n 1 -s -r
 echo -e \
      "${CYAN}
 For this hands-on we consider a model for transport of a pollutant that has
@@ -288,7 +287,6 @@ echo -e \
 "${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
-read -n 1 -s -r
 echo -e \
 "${GREEN}# 4th order method with dt = 100${COLOR_RESET}"
 pe "mpiexec -n 4 ./HandsOn2.CUDA.exe inputs-2 fixed_dt=100.0"
@@ -421,6 +419,21 @@ echo -e \
 "${GREEN}# Compute the final error${COLOR_RESET}"
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
+# Summarize results
+echo -e \
+"${CYAN}
+Fixed Step Results
+
+| type |  dt |  error | runtime |                 rhs evals |
++------+-----+--------+---------+---------------------------+
+|   ex |   5 | 8.5e-9 |    1.68 |                     8,001 |
+|   ex |  25 | 1      |    0.37 |                     1,601 |
+|   im |   5 | 4.8e-6 |   23.37 |                    60,716 |
+|   im | 100 | 9.5e-5 |    5.19 |                     9,079 |
+| imex |   5 | 2.6e-8 |   23.73 | 14,001 (ex) + 62,001 (im) |
+
+${COLOR_RESET}"
+
 echo -e \
 "${CYAN}
 Do you notice any efficiency or accuracy differences between fully implicit
@@ -434,7 +447,7 @@ vs implicit RHS function evaluations?
 ${COLOR_RESET}"
 
 echo -e \
-"${RUN}
+"${RED}
 Run the IMEX version a few times with various fixed time step sizes (the
 fixed_dt argument), checking the overall solution error each time - can you
 find a maximum stable step size?
@@ -451,16 +464,15 @@ echo -e \
 "${CYAN}
 Fixed Step Results
 
-| type |  dt |  error | runtime | rhs evals |
-+------+-----+--------+---------+-----------+
-|   ex |   5 | 8.5e-9 |    1.68 |
-|   ex |  25 | 1      |    0.37 |
-|   im |   5 | 4.8e-6 |   23.37 |
-|   im | 100 | 9.5e-5 |    5.19 |
-| imex |   5 | 6.6e-9 |   23.73 |
-| imex |  40 |        |         |
+| type |  dt |  error | runtime |                 rhs evals |
++------+-----+--------+---------+---------------------------+
+|   ex |   5 | 8.5e-9 |    1.68 |                     8,001 |
+|   ex |  25 | 1      |    0.37 |                     1,601 |
+|   im |   5 | 4.8e-6 |   23.37 |                    60,716 |
+|   im | 100 | 9.5e-5 |    5.19 |                     9,079 |
+| imex |   5 | 2.6e-8 |   23.73 | 14,001 (ex) + 62,001 (im) |
+| imex |  40 | 6.2e-6 |    3.78 |  7,751 (ex) +  9,562 (im) |                           |
 
-What do you think happened?
 ${COLOR_RESET}"
 
 echo -e \
