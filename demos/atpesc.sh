@@ -488,20 +488,18 @@ echo -e \
 pe "./amrex_fcompare plt00001/ reference_solution/"
 
 echo -e \
-"${GREEN}# Compute the final error${COLOR_RESET}"
-pe "./plot_log.py HandsOn1_1e-4.log HandsOn2_1e-4.log HandsOn1_1e-4_imex.log --logy --labels explicit impicit imex --save imex_adaptive.pdf"
+"${GREEN}# Plot the step size history${COLOR_RESET}"
+pe "./plot_log.py HandsOn1_1e-4.log HandsOn2_1e-4.log HandsOn2_1e-4_imex.log --logy --labels explicit impicit imex --save imex_adaptive.pdf"
 
 ########################
 # Wrap up
 ########################
 
-LESSON="Out-brief"
-DEMO_PROMPT="${CYAN}${LESSON} ${GREEN}> "
-
-p "msg"
 echo -e \
-"${GREEN}
-# Out-brief
+     "${GREEN}\
+# ------- #
+# Wrap up #
+# ------- #
 ${COLOR_RESET}"
 
 # show a prompt so as not to reveal our true nature after
